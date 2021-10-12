@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qjx.mapper.TUserMapper">
+
+    <!--t_user表的usercode,username,userpswd,orgtype字段-->
+    <sql id="t_user_all_field">
+        usercode,username,userpswd,orgtype
+    </sql>
+
+    <!--from t_user子句-->
+    <sql id="from_t_user">
+        from t_user
+    </sql>
+
+    <!--添加用户-->
+    <insert id="addUser">
+        insert into t_user values(#{usercode},#{username},#{orgtype},#{userpswd},#{regdate})
+    </insert>
+
+    <!--分页查询-->
+    <select id="pageSplit" resultType="com.qjx.pojo.TUser">
+        select usercode,username,orgtype <include refid="from_t_user"/> order by regdate desc
+    </select>
+
+    <!--根据主键查询用户-->
+    <select id="selectByPrimary" resultType="TUser">
+        select
+            <include refid="t_user_all_field"/>
+        <include refid="from_t_user"/> where usercode = #{usercode}
+    </select>
+
+    <!--根据主键usercode更新用户-->
+    <update id="updateUser">
+        update
+          t_user
+        set
+          username = #{username},userpswd = #{userpswd},orgtype = #{orgtype}
+        where
+          usercode = #{usercode}
+
+    </update>
+
+    <!--根据主键删除用户-->
+    <delete id="deleteUser">
+        delete from t_user where usercode in
+        <foreach collection="array" item="str" open="(" separator="," close=")">
+            #{str}
+        </foreach>
+    </delete>
+
+     <!--用户登录查询方法，根据usercode、orgtype、userpswd查询-->
+    <select id="login" resultType="Tuser">
+        select
+          username <include refid="from_t_user"/>
+        where
+          usercode = #{usercode}
+        and
+          userpswd = #{userpswd}
+        and
+          orgtype = #{orgtype}
+    </select>
+
+</mapper>

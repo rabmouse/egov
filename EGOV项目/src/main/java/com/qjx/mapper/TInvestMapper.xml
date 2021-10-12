@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qjx.mapper.TInvestMapper">
+    <resultMap id="BaseResultMap" type="com.qjx.pojo.TInvest">
+        <id column="invregnum" property="invregnum" jdbcType="INTEGER"/>
+        <result column="invname" property="invname" jdbcType="VARCHAR"/>
+        <result column="cty" property="cty" jdbcType="CHAR"/>
+        <result column="orgcode" property="orgcode" jdbcType="VARCHAR"/>
+        <result column="contactman" property="contactman" jdbcType="VARCHAR"/>
+        <result column="contacttel" property="contacttel" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="usercode" property="usercode" jdbcType="VARCHAR"/>
+        <result column="regdate" property="regdate" jdbcType="CHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    invregnum, invname, cty, orgcode, contactman, contacttel, email, remark, usercode, 
+    regdate
+  </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qjx.pojo.TInvestExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from t_invest
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_invest
+        where invregnum = #{invregnum,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_invest
+    where invregnum = #{invregnum,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.qjx.pojo.TInvestExample">
+        delete from t_invest
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.qjx.pojo.TInvest">
+    insert into t_invest (invname, cty,
+      orgcode, contactman, contacttel, 
+      email, remark, usercode, 
+      regdate)
+    values (#{invname,jdbcType=VARCHAR}, #{cty,jdbcType=CHAR},
+      #{orgcode,jdbcType=VARCHAR}, #{contactman,jdbcType=VARCHAR}, #{contacttel,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{usercode,jdbcType=VARCHAR}, 
+      #{regdate,jdbcType=CHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.qjx.pojo.TInvest">
+        insert into t_invest
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="invregnum != null">
+                invregnum,
+            </if>
+            <if test="invname != null">
+                invname,
+            </if>
+            <if test="cty != null">
+                cty,
+            </if>
+            <if test="orgcode != null">
+                orgcode,
+            </if>
+            <if test="contactman != null">
+                contactman,
+            </if>
+            <if test="contacttel != null">
+                contacttel,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="usercode != null">
+                usercode,
+            </if>
+            <if test="regdate != null">
+                regdate,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="invregnum != null">
+                #{invregnum,jdbcType=INTEGER},
+            </if>
+            <if test="invname != null">
+                #{invname,jdbcType=VARCHAR},
+            </if>
+            <if test="cty != null">
+                #{cty,jdbcType=CHAR},
+            </if>
+            <if test="orgcode != null">
+                #{orgcode,jdbcType=VARCHAR},
+            </if>
+            <if test="contactman != null">
+                #{contactman,jdbcType=VARCHAR},
+            </if>
+            <if test="contacttel != null">
+                #{contacttel,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="usercode != null">
+                #{usercode,jdbcType=VARCHAR},
+            </if>
+            <if test="regdate != null">
+                #{regdate,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.qjx.pojo.TInvestExample" resultType="java.lang.Integer">
+        select count(*) from t_invest
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update t_invest
+        <set>
+            <if test="record.invregnum != null">
+                invregnum = #{record.invregnum,jdbcType=INTEGER},
+            </if>
+            <if test="record.invname != null">
+                invname = #{record.invname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cty != null">
+                cty = #{record.cty,jdbcType=CHAR},
+            </if>
+            <if test="record.orgcode != null">
+                orgcode = #{record.orgcode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.contactman != null">
+                contactman = #{record.contactman,jdbcType=VARCHAR},
+            </if>
+            <if test="record.contacttel != null">
+                contacttel = #{record.contacttel,jdbcType=VARCHAR},
+            </if>
+            <if test="record.email != null">
+                email = #{record.email,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remark != null">
+                remark = #{record.remark,jdbcType=VARCHAR},
+            </if>
+            <if test="record.usercode != null">
+                usercode = #{record.usercode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.regdate != null">
+                regdate = #{record.regdate,jdbcType=CHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update t_invest
+        set invregnum = #{record.invregnum,jdbcType=INTEGER},
+        invname = #{record.invname,jdbcType=VARCHAR},
+        cty = #{record.cty,jdbcType=CHAR},
+        orgcode = #{record.orgcode,jdbcType=VARCHAR},
+        contactman = #{record.contactman,jdbcType=VARCHAR},
+        contacttel = #{record.contacttel,jdbcType=VARCHAR},
+        email = #{record.email,jdbcType=VARCHAR},
+        remark = #{record.remark,jdbcType=VARCHAR},
+        usercode = #{record.usercode,jdbcType=VARCHAR},
+        regdate = #{record.regdate,jdbcType=CHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.qjx.pojo.TInvest">
+        update t_invest
+        <set>
+            <if test="invname != null">
+                invname = #{invname,jdbcType=VARCHAR},
+            </if>
+            <if test="cty != null">
+                cty = #{cty,jdbcType=CHAR},
+            </if>
+            <if test="orgcode != null">
+                orgcode = #{orgcode,jdbcType=VARCHAR},
+            </if>
+            <if test="contactman != null">
+                contactman = #{contactman,jdbcType=VARCHAR},
+            </if>
+            <if test="contacttel != null">
+                contacttel = #{contacttel,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="usercode != null">
+                usercode = #{usercode,jdbcType=VARCHAR},
+            </if>
+            <if test="regdate != null">
+                regdate = #{regdate,jdbcType=CHAR},
+            </if>
+        </set>
+        where invregnum = #{invregnum,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.qjx.pojo.TInvest">
+    update t_invest
+    set invname = #{invname,jdbcType=VARCHAR},
+      cty = #{cty,jdbcType=CHAR},
+      orgcode = #{orgcode,jdbcType=VARCHAR},
+      contactman = #{contactman,jdbcType=VARCHAR},
+      contacttel = #{contacttel,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      usercode = #{usercode,jdbcType=VARCHAR},
+      regdate = #{regdate,jdbcType=CHAR}
+    where invregnum = #{invregnum,jdbcType=INTEGER}
+  </update>
+
+    <!--多条件查询投资人信息-->
+    <select id="selectByMix" resultType="com.qjx.pojo.TInvest">
+      select
+        i.invregnum,i.invname,i.regdate,i.cty,u.username
+      from
+        t_user u
+      join
+        t_invest i
+      on
+        i.usercode = u.usercode
+        <where>
+            <if test="invregnum!=null">
+                i.invregnum=#{invregnum}
+            </if>
+            <if test="invname!=''">
+                and i.invname like "%"#{invname}"%"
+            </if>
+            <if test="startdate!=''and  enddate==''">
+                and i.regdate >= #{startdate}
+            </if>
+            <if test=" startdate=='' and   enddate!=''">
+                and i.regdate &lt; #{enddate}
+            </if>
+            <if test="startdate!='' and enddate!=''">
+                and i.regdate between #{startdate} and #{enddate}
+            </if>
+        </where>
+        order by i.regdate desc
+
+  </select>
+
+</mapper>

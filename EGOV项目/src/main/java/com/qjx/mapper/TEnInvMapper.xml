@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qjx.mapper.TEnInvMapper" >
+  <resultMap id="BaseResultMap" type="com.qjx.pojo.TEnInv" >
+    <id column="orgcode" property="orgcode" jdbcType="INTEGER" />
+    <id column="invregnum" property="invregnum" jdbcType="INTEGER" />
+    <result column="regcap" property="regcap" jdbcType="INTEGER" />
+    <result column="scale" property="scale" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    orgcode, invregnum, regcap, scale
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qjx.pojo.TEnInvExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_en_inv
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.qjx.pojo.TEnInvKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_en_inv
+    where orgcode = #{orgcode,jdbcType=INTEGER}
+      and invregnum = #{invregnum,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.qjx.pojo.TEnInvKey" >
+    delete from t_en_inv
+    where orgcode = #{orgcode,jdbcType=INTEGER}
+      and invregnum = #{invregnum,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qjx.pojo.TEnInvExample" >
+    delete from t_en_inv
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qjx.pojo.TEnInv" >
+    insert into t_en_inv (orgcode, invregnum, regcap, 
+      scale)
+    values (#{orgcode,jdbcType=INTEGER}, #{invregnum,jdbcType=INTEGER}, #{regcap,jdbcType=INTEGER}, 
+      #{scale,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qjx.pojo.TEnInv" >
+    insert into t_en_inv
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orgcode != null" >
+        orgcode,
+      </if>
+      <if test="invregnum != null" >
+        invregnum,
+      </if>
+      <if test="regcap != null" >
+        regcap,
+      </if>
+      <if test="scale != null" >
+        scale,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orgcode != null" >
+        #{orgcode,jdbcType=INTEGER},
+      </if>
+      <if test="invregnum != null" >
+        #{invregnum,jdbcType=INTEGER},
+      </if>
+      <if test="regcap != null" >
+        #{regcap,jdbcType=INTEGER},
+      </if>
+      <if test="scale != null" >
+        #{scale,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qjx.pojo.TEnInvExample" resultType="java.lang.Integer" >
+    select count(*) from t_en_inv
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_en_inv
+    <set >
+      <if test="record.orgcode != null" >
+        orgcode = #{record.orgcode,jdbcType=INTEGER},
+      </if>
+      <if test="record.invregnum != null" >
+        invregnum = #{record.invregnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.regcap != null" >
+        regcap = #{record.regcap,jdbcType=INTEGER},
+      </if>
+      <if test="record.scale != null" >
+        scale = #{record.scale,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_en_inv
+    set orgcode = #{record.orgcode,jdbcType=INTEGER},
+      invregnum = #{record.invregnum,jdbcType=INTEGER},
+      regcap = #{record.regcap,jdbcType=INTEGER},
+      scale = #{record.scale,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qjx.pojo.TEnInv" >
+    update t_en_inv
+    <set >
+      <if test="regcap != null" >
+        regcap = #{regcap,jdbcType=INTEGER},
+      </if>
+      <if test="scale != null" >
+        scale = #{scale,jdbcType=INTEGER},
+      </if>
+    </set>
+    where orgcode = #{orgcode,jdbcType=INTEGER}
+      and invregnum = #{invregnum,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qjx.pojo.TEnInv" >
+    update t_en_inv
+    set regcap = #{regcap,jdbcType=INTEGER},
+      scale = #{scale,jdbcType=INTEGER}
+    where orgcode = #{orgcode,jdbcType=INTEGER}
+      and invregnum = #{invregnum,jdbcType=INTEGER}
+  </update>
+
+
+</mapper>

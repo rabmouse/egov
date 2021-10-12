@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <!-- mybatis设置sql语句的日志，可以看到mybatis执行sql语句的细节 -->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <!-- 设置别名 -->
+    <typeAliases>
+        <!-- name：是包名，包中的所有类的类名就是对应的别名【实体类所在的包名】
+                    也可以是其他类的包名，只不过开发中常用的是实体类别名。 
+        -->
+        <package name="com.qjx.pojo"/>
+    </typeAliases>
+
+    <plugins>
+        <!--注册分页助手拦截器插件-->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
+
+    <!-- 定位mybatis的映射文件的位置 -->
+    <mappers>
+        <!-- name：包中的所有mybatis的mapper文件一次性都读取到
+            使用package的条件：
+                1.mapper文件的名称必须和dao接口名称必须完全一样
+                2.mapper文件的位置必须和dao接口所在的位置一样 
+        -->
+        <package name="com.qjx.mapper"/>
+    </mappers>
+
+</configuration>

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qjx.mapper.TAuthMapper" >
+  <resultMap id="BaseResultMap" type="com.qjx.pojo.TAuth" >
+    <id column="authno" property="authno" jdbcType="INTEGER" />
+    <result column="orgcode" property="orgcode" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="contactman" property="contactman" jdbcType="VARCHAR" />
+    <result column="contacttel" property="contacttel" jdbcType="VARCHAR" />
+    <result column="filename" property="filename" jdbcType="VARCHAR" />
+    <result column="fileremark" property="fileremark" jdbcType="VARCHAR" />
+    <result column="usercode" property="usercode" jdbcType="VARCHAR" />
+    <result column="feedback" property="feedback" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    authno, orgcode, remark, contactman, contacttel, filename, fileremark, usercode, 
+    feedback
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qjx.pojo.TAuthExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_auth
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_auth
+    where authno = #{authno,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_auth
+    where authno = #{authno,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qjx.pojo.TAuthExample" >
+    delete from t_auth
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qjx.pojo.TAuth" >
+    insert into t_auth (authno, orgcode, remark, 
+      contactman, contacttel, filename, 
+      fileremark, usercode, feedback
+      )
+    values (#{authno,jdbcType=INTEGER}, #{orgcode,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{contactman,jdbcType=VARCHAR}, #{contacttel,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR}, 
+      #{fileremark,jdbcType=VARCHAR}, #{usercode,jdbcType=VARCHAR}, #{feedback,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qjx.pojo.TAuth" >
+    insert into t_auth
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="authno != null" >
+        authno,
+      </if>
+      <if test="orgcode != null" >
+        orgcode,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="contactman != null" >
+        contactman,
+      </if>
+      <if test="contacttel != null" >
+        contacttel,
+      </if>
+      <if test="filename != null" >
+        filename,
+      </if>
+      <if test="fileremark != null" >
+        fileremark,
+      </if>
+      <if test="usercode != null" >
+        usercode,
+      </if>
+      <if test="feedback != null" >
+        feedback,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="authno != null" >
+        #{authno,jdbcType=INTEGER},
+      </if>
+      <if test="orgcode != null" >
+        #{orgcode,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="contactman != null" >
+        #{contactman,jdbcType=VARCHAR},
+      </if>
+      <if test="contacttel != null" >
+        #{contacttel,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="fileremark != null" >
+        #{fileremark,jdbcType=VARCHAR},
+      </if>
+      <if test="usercode != null" >
+        #{usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="feedback != null" >
+        #{feedback,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qjx.pojo.TAuthExample" resultType="java.lang.Integer" >
+    select count(*) from t_auth
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_auth
+    <set >
+      <if test="record.authno != null" >
+        authno = #{record.authno,jdbcType=INTEGER},
+      </if>
+      <if test="record.orgcode != null" >
+        orgcode = #{record.orgcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactman != null" >
+        contactman = #{record.contactman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contacttel != null" >
+        contacttel = #{record.contacttel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filename != null" >
+        filename = #{record.filename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileremark != null" >
+        fileremark = #{record.fileremark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usercode != null" >
+        usercode = #{record.usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.feedback != null" >
+        feedback = #{record.feedback,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_auth
+    set authno = #{record.authno,jdbcType=INTEGER},
+      orgcode = #{record.orgcode,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      contactman = #{record.contactman,jdbcType=VARCHAR},
+      contacttel = #{record.contacttel,jdbcType=VARCHAR},
+      filename = #{record.filename,jdbcType=VARCHAR},
+      fileremark = #{record.fileremark,jdbcType=VARCHAR},
+      usercode = #{record.usercode,jdbcType=VARCHAR},
+      feedback = #{record.feedback,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qjx.pojo.TAuth" >
+    update t_auth
+    <set >
+      <if test="orgcode != null" >
+        orgcode = #{orgcode,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="contactman != null" >
+        contactman = #{contactman,jdbcType=VARCHAR},
+      </if>
+      <if test="contacttel != null" >
+        contacttel = #{contacttel,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null" >
+        filename = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="fileremark != null" >
+        fileremark = #{fileremark,jdbcType=VARCHAR},
+      </if>
+      <if test="usercode != null" >
+        usercode = #{usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="feedback != null" >
+        feedback = #{feedback,jdbcType=CHAR},
+      </if>
+    </set>
+    where authno = #{authno,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qjx.pojo.TAuth" >
+    update t_auth
+    set orgcode = #{orgcode,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      contactman = #{contactman,jdbcType=VARCHAR},
+      contacttel = #{contacttel,jdbcType=VARCHAR},
+      filename = #{filename,jdbcType=VARCHAR},
+      fileremark = #{fileremark,jdbcType=VARCHAR},
+      usercode = #{usercode,jdbcType=VARCHAR},
+      feedback = #{feedback,jdbcType=CHAR}
+    where authno = #{authno,jdbcType=INTEGER}
+  </update>
+
+  <!--查找核准件-->
+  <select id="selectTauth" resultType="com.qjx.pojo.TAuth">
+    select
+      a.contactman,a.contacttel,e.regcap,e.regcry,e.regdate
+    from
+      t_auth a
+    join
+      t_enterprise e
+    on
+      a.orgcode = e.orgcode
+    where a.authno = #{authno}
+  </select>
+
+  <update id="feedBack" >
+    update
+      t_auth
+    set
+      feedback = '1'
+    where
+      authno = #{authno}
+  </update>
+</mapper>

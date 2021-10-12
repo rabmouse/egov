@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qjx.mapper.TEnterpriseMapper">
+    <resultMap id="BaseResultMap" type="com.qjx.pojo.TEnterprise">
+        <id column="orgcode" property="orgcode" jdbcType="INTEGER"/>
+        <result column="regno" property="regno" jdbcType="VARCHAR"/>
+        <result column="cnname" property="cnname" jdbcType="VARCHAR"/>
+        <result column="enname" property="enname" jdbcType="VARCHAR"/>
+        <result column="contactman" property="contactman" jdbcType="VARCHAR"/>
+        <result column="contacttel" property="contacttel" jdbcType="VARCHAR"/>
+        <result column="regcap" property="regcap" jdbcType="INTEGER"/>
+        <result column="outregcap" property="outregcap" jdbcType="INTEGER"/>
+        <result column="regcry" property="regcry" jdbcType="CHAR"/>
+        <result column="usercode" property="usercode" jdbcType="VARCHAR"/>
+        <result column="regdate" property="regdate" jdbcType="CHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    orgcode, regno, cnname, enname, contactman, contacttel, regcap, outregcap, regcry, 
+    usercode, regdate
+  </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qjx.pojo.TEnterpriseExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from t_enterprise
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_enterprise
+        where orgcode = #{orgcode,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_enterprise
+    where orgcode = #{orgcode,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.qjx.pojo.TEnterpriseExample">
+        delete from t_enterprise
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.qjx.pojo.TEnterprise">
+    insert into t_enterprise (orgcode, regno, cnname, 
+      enname, contactman, contacttel, 
+      regcap, outregcap, regcry, 
+      usercode, regdate)
+    values (#{orgcode,jdbcType=INTEGER}, #{regno,jdbcType=VARCHAR}, #{cnname,jdbcType=VARCHAR}, 
+      #{enname,jdbcType=VARCHAR}, #{contactman,jdbcType=VARCHAR}, #{contacttel,jdbcType=VARCHAR}, 
+      #{regcap,jdbcType=INTEGER}, #{outregcap,jdbcType=INTEGER}, #{regcry,jdbcType=CHAR}, 
+      #{usercode,jdbcType=VARCHAR}, #{regdate,jdbcType=CHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.qjx.pojo.TEnterprise">
+        insert into t_enterprise
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orgcode != null">
+                orgcode,
+            </if>
+            <if test="regno != null">
+                regno,
+            </if>
+            <if test="cnname != null">
+                cnname,
+            </if>
+            <if test="enname != null">
+                enname,
+            </if>
+            <if test="contactman != null">
+                contactman,
+            </if>
+            <if test="contacttel != null">
+                contacttel,
+            </if>
+            <if test="regcap != null">
+                regcap,
+            </if>
+            <if test="outregcap != null">
+                outregcap,
+            </if>
+            <if test="regcry != null">
+                regcry,
+            </if>
+            <if test="usercode != null">
+                usercode,
+            </if>
+            <if test="regdate != null">
+                regdate,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orgcode != null">
+                #{orgcode,jdbcType=INTEGER},
+            </if>
+            <if test="regno != null">
+                #{regno,jdbcType=VARCHAR},
+            </if>
+            <if test="cnname != null">
+                #{cnname,jdbcType=VARCHAR},
+            </if>
+            <if test="enname != null">
+                #{enname,jdbcType=VARCHAR},
+            </if>
+            <if test="contactman != null">
+                #{contactman,jdbcType=VARCHAR},
+            </if>
+            <if test="contacttel != null">
+                #{contacttel,jdbcType=VARCHAR},
+            </if>
+            <if test="regcap != null">
+                #{regcap,jdbcType=INTEGER},
+            </if>
+            <if test="outregcap != null">
+                #{outregcap,jdbcType=INTEGER},
+            </if>
+            <if test="regcry != null">
+                #{regcry,jdbcType=CHAR},
+            </if>
+            <if test="usercode != null">
+                #{usercode,jdbcType=VARCHAR},
+            </if>
+            <if test="regdate != null">
+                #{regdate,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.qjx.pojo.TEnterpriseExample" resultType="java.lang.Integer">
+        select count(*) from t_enterprise
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update t_enterprise
+        <set>
+            <if test="record.orgcode != null">
+                orgcode = #{record.orgcode,jdbcType=INTEGER},
+            </if>
+            <if test="record.regno != null">
+                regno = #{record.regno,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cnname != null">
+                cnname = #{record.cnname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.enname != null">
+                enname = #{record.enname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.contactman != null">
+                contactman = #{record.contactman,jdbcType=VARCHAR},
+            </if>
+            <if test="record.contacttel != null">
+                contacttel = #{record.contacttel,jdbcType=VARCHAR},
+            </if>
+            <if test="record.regcap != null">
+                regcap = #{record.regcap,jdbcType=INTEGER},
+            </if>
+            <if test="record.outregcap != null">
+                outregcap = #{record.outregcap,jdbcType=INTEGER},
+            </if>
+            <if test="record.regcry != null">
+                regcry = #{record.regcry,jdbcType=CHAR},
+            </if>
+            <if test="record.usercode != null">
+                usercode = #{record.usercode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.regdate != null">
+                regdate = #{record.regdate,jdbcType=CHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update t_enterprise
+        set orgcode = #{record.orgcode,jdbcType=INTEGER},
+        regno = #{record.regno,jdbcType=VARCHAR},
+        cnname = #{record.cnname,jdbcType=VARCHAR},
+        enname = #{record.enname,jdbcType=VARCHAR},
+        contactman = #{record.contactman,jdbcType=VARCHAR},
+        contacttel = #{record.contacttel,jdbcType=VARCHAR},
+        regcap = #{record.regcap,jdbcType=INTEGER},
+        outregcap = #{record.outregcap,jdbcType=INTEGER},
+        regcry = #{record.regcry,jdbcType=CHAR},
+        usercode = #{record.usercode,jdbcType=VARCHAR},
+        regdate = #{record.regdate,jdbcType=CHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.qjx.pojo.TEnterprise">
+        update t_enterprise
+        <set>
+            <if test="regno != null">
+                regno = #{regno,jdbcType=VARCHAR},
+            </if>
+            <if test="cnname != null">
+                cnname = #{cnname,jdbcType=VARCHAR},
+            </if>
+            <if test="enname != null">
+                enname = #{enname,jdbcType=VARCHAR},
+            </if>
+            <if test="contactman != null">
+                contactman = #{contactman,jdbcType=VARCHAR},
+            </if>
+            <if test="contacttel != null">
+                contacttel = #{contacttel,jdbcType=VARCHAR},
+            </if>
+            <if test="regcap != null">
+                regcap = #{regcap,jdbcType=INTEGER},
+            </if>
+            <if test="outregcap != null">
+                outregcap = #{outregcap,jdbcType=INTEGER},
+            </if>
+            <if test="regcry != null">
+                regcry = #{regcry,jdbcType=CHAR},
+            </if>
+            <if test="usercode != null">
+                usercode = #{usercode,jdbcType=VARCHAR},
+            </if>
+            <if test="regdate != null">
+                regdate = #{regdate,jdbcType=CHAR},
+            </if>
+        </set>
+        where orgcode = #{orgcode,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.qjx.pojo.TEnterprise">
+    update t_enterprise
+    set regno = #{regno,jdbcType=VARCHAR},
+      cnname = #{cnname,jdbcType=VARCHAR},
+      enname = #{enname,jdbcType=VARCHAR},
+      contactman = #{contactman,jdbcType=VARCHAR},
+      contacttel = #{contacttel,jdbcType=VARCHAR},
+      regcap = #{regcap,jdbcType=INTEGER},
+      outregcap = #{outregcap,jdbcType=INTEGER},
+      regcry = #{regcry,jdbcType=CHAR},
+      usercode = #{usercode,jdbcType=VARCHAR},
+      regdate = #{regdate,jdbcType=CHAR}
+    where orgcode = #{orgcode,jdbcType=INTEGER}
+  </update>
+
+    <!--分页查询外商投资企业，默认查第一页-->
+    <select id="pageQuery" resultType="com.qjx.pojo.TEnterprise">
+        select
+        en.orgcode,en.cnname,en.regdate,en.regcap,u.username
+        from
+        t_enterprise en
+        join t_user u
+        on
+        u.usercode = en.usercode
+        <where>
+            <if test="orgcode!=null">
+                en.orgcode=#{orgcode}
+            </if>
+            <if test="cnname!=''">
+                and en.cnname like "%"#{cnname}"%"
+            </if>
+            <if test="startdate!=''and  enddate==''">
+                and en.regdate >= #{startdate}
+            </if>
+            <if test=" startdate=='' and   enddate!=''">
+                and en.regdate &lt;= #{enddate}
+            </if>
+            <if test="startdate!='' and enddate!=''">
+                and en.regdate between #{startdate} and #{enddate}
+            </if>
+        </where>
+        order by en.regdate desc
+    </select>
+
+    <!--查询饼图的数据-->
+    <select id="selectForPie" resultType="com.qjx.vo.PieVo">
+      select
+        ent.cnname,e.regcap ,inv.invname
+      from
+       t_en_inv e
+    join
+        t_enterprise ent
+    on
+        ent.orgcode = e.orgcode
+    join
+      t_invest inv
+  on
+    e.invregnum = inv.invregnum
+ where ent.orgcode = #{orgcode}
+    </select>
+</mapper>
